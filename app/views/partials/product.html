@@ -1,0 +1,54 @@
+<div class="product-desc container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h3>{{product.name}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <img src="https://cdn.vertex42.com/WordTemplates/images/recipe-card-1_4x6.png" class="img-responsive"/>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-6 product-attributes">
+            <form name="productAttrForm">
+                <select ng-model="productAttr.papertype" required>
+                    <option value="">Select Paper Type</option>
+                    <option value="{{type.id}}" ng-repeat="type in papertype">{{type.paper_type}}</option>
+                </select>
+                <select ng-model="productAttr.paperformat" required>
+                    <option value="">Select Form Label</option>
+                    <option value="{{format.id}}" ng-repeat="format in paperformat">{{format.format_label}}</option>
+                </select><br/>
+                <label>
+                    Select Print Sides:
+                    <input type="radio" ng-model="productAttr.side" value="1" ng-required="!productAttr.side">
+                    One Sided
+                </label>
+                <label>
+                    <input type="radio" ng-model="productAttr.side" value="2" ng-required="!productAttr.side">
+                    Both Sided
+                </label><br/>
+                <button class="btn btn-primary"
+                        ng-click="getPriceByProduct(productAttr)"
+                        ng-disabled="productAttrForm.$invalid">Get Price</button>
+            </form>
+        </div>
+    </div>
+    <div class="row" ng-show="showTable">
+        <h4>Price table</h4>
+        <table id="priceTable" >
+            <thead>
+                <th ></th>
+                <th ng-repeat="itrDate in dates">{{itrDate}}</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="itrQty in qtyrows">
+                    <td >{{itrQty}}</td>
+                    <td ng-repeat="itrDate in dates">
+                        {{priceTable[itrQty][itrDate]}}
+                        <input type="checkbox" ng-model="selectedPrice" data-date="{{itrDate}}" data-qty="{{itrQty}}">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
